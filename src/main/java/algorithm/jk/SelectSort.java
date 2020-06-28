@@ -12,21 +12,19 @@ public class SelectSort {
         if (n < 1) {
             return;
         }
-
-
         for (int i = 0; i < n; i++) {
             int min = a[i];
-            int index=i;
-            for (int j =  i + 1; j <n; j++) {
+            int index = i;
+            for (int j = i + 1; j < n; j++) {
                 if (min > a[j]) {
                     min = a[j];
-                    index=j;
+                    index = j;
                 }
             }
-          //  System.out.println(i+","+min);
-            int at=a[i];
+            //  System.out.println(i+","+min);
+            int at = a[i];
             a[i] = min;
-            a[index]=at;
+            a[index] = at;
             pint(a);
 
         }
@@ -34,7 +32,7 @@ public class SelectSort {
 
     }
 
-    private void pint(int[] arr){
+    private void pint(int[] arr) {
         int size = arr.length;
 
         for (int i = 0; i < size; i++) {

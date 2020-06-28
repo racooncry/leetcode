@@ -1,5 +1,8 @@
 package algorithm.array;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author: yxw
  * @Date: 2018/9/17 19:47
@@ -40,18 +43,61 @@ package algorithm.array;
  */
 public class Solution873 {
     public int lenLongestFibSubseq(int[] A) {
-//        int maxLength = 0;
-//        int length=A.length;
-//        for(int i=1;i<length-1;i++){
-//            if((i-1)
-//
-//
-//        }
+        int maxLength = 0;
+        int first;
+        int sencond;
+        for (int i = 0; i < A.length; i++) {
+            for (int j = i + 1; j < A.length - 1; j++) {
+                first = A[i];
+                sencond = A[j];
+                int time = 0;
+                for (int k = j + 1; k < A.length; k++) {
+                    if (first + sencond == A[k]) {
+                        first = sencond;
+                        sencond = A[k];
+                        time++;
+                    }
+                }
+                if (time > maxLength) {
+                    maxLength = time;
+                }
+            }
 
-return 0;
+        }
+
+        return maxLength > 0 ? maxLength + 2 : maxLength;
     }
 
-    public static void main(String[] args) {
 
+
+    //1,2,3,4,5,6,7,8
+    public int lenLongestFibSubseq3(int[] A) {
+        int res = 0;
+        int[][] dp = new int[A.length][A.length];
+        Map<Integer, Integer> index = new HashMap<>();
+        for (int j = 0; j < A.length; j++) {
+            index.put(A[j], j);
+            for (int i = 0; i < j; i++) {
+                int k = index.getOrDefault(A[j] - A[i], -1);
+                dp[i][j] = (A[j] - A[i] < A[i] && k >= 0) ? dp[k][i] + 1 : 2;
+                res = Math.max(res, dp[i][j]);
+            }
+        }
+        return res > 2 ? res : 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public static void main(String[] args) {
+        int[] nums = {2, 4, 7, 8, 9, 10, 14, 15, 18, 23, 32, 50};
+        System.out.println(new Solution873().lenLongestFibSubseq(nums));
     }
 }

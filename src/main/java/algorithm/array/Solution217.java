@@ -1,5 +1,9 @@
 package algorithm.array;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @Author: yxw
  * @Date: 2018/11/21 9:24
@@ -29,10 +33,39 @@ public class Solution217 {
         for (int i : nums) {
             set.add(i);
         }
-        return set.size() != nums.length() ? false : true;
+        return set.size() != nums.length;
     }
 
-    public static void main(String[] args) {
+    public boolean containsDuplicate2(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == nums[i++]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+//0,2,1,3,2
+    //2,0,1,3,2
+    //5,
+    public boolean containsDuplicate3(int[] nums) {
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (nums[i] > nums[j]) {
+                    break;
+                } else if (nums[i] == nums[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public static void main(String[] args) {
+       // int[] nums={3,1,2,1};
+        int[] nums={0,2,1,3,2};
+        System.out.println(new Solution217().containsDuplicate3(nums));
     }
 }
